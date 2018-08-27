@@ -18,17 +18,17 @@ class UserProfileRouter {
 
     initializeRouting() {
         this.router.post('/', async (req, res) => {
-            const {userName, password} = req.body;
+            const { userName, password } = req.body;
 
             const validation = userName && password;
 
-            if(!validation){
+            if (!validation) {
                 throw new Error(ErrorConstants.INVALID_ARGUMENTS);
             }
 
             const isValid = await this.userProfileService.validate(userName, password);
 
-            if(!isValid){
+            if (!isValid) {
                 throw new Error(ErrorConstants.BUSINESS_VALIDATION_FAILED);
             }
 
@@ -42,7 +42,7 @@ class UserProfileRouter {
                 token
             };
 
-            res.json(HttpStatusCodes.CONTENT_CREATE, signature);
+            res.status(HttpStatusCodes.CONTENT_CREATE).json(signature);
         });
     }
 }

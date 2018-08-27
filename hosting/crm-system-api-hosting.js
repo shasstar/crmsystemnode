@@ -32,7 +32,7 @@ class CRMSystemAPIHost {
 
         this.app.use('/api/customers', this.customerRouter.router);
         this.app.use('/api/orders', this.orderRouter.router);
-        this.app.use('/authenticate', this.userProfileRouter.router);
+        this.app.use('/api/authenticate', this.userProfileRouter.router);
     }
 
     async start() {

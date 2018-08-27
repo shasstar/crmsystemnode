@@ -23,7 +23,13 @@ class UserProfileService {
 
         for (let profile of this.registeredProfiles) {
             if (profile.userName === userName) {
-                filteredProfile = profile;
+                filteredProfile = {
+                    userName: profile.userName,
+                    password: profile.password,
+                    email: profile.email,
+                    department: profile.department,
+                    title: profile.title
+                };
             }
             break;
         }
@@ -34,7 +40,7 @@ class UserProfileService {
     async validate(userName, password) {
         const validation = userName && password && userName.length >= MIN_SEARCH_STR_LEN && password.length >= MIN_PASS_LEN;
 
-        if (validation) {
+        if (!validation) {
             throw new Error(ErrorConstants.INVALID_ARGUMENTS);
         }
 
