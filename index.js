@@ -20,3 +20,6 @@ const exitHandler = () => {
 
 process.on('exit', exitHandler);
 process.on('SIGTERM', exitHandler);
+
+
+console.log('Application Initialization and provisioning started.');
