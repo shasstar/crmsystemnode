@@ -14,7 +14,7 @@ class UserProfileService {
             new UserProfile(5, 'user5', 'pass5', 'email5', 'dept5', 'title5')
         ];
     }
-    async getUserProfileByName(userName) {
+    async getUserProfileByName(userName, isPrivateDataIncluded = false) {
         if (!userName) {
             throw new Error(ErrorConstants.INVALID_ARGUMENTS);
         }
@@ -25,12 +25,15 @@ class UserProfileService {
             if (profile.userName === userName) {
                 filteredProfile = {
                     userName: profile.userName,
-                    password: profile.password,
                     email: profile.email,
                     department: profile.department,
                     title: profile.title
                 };
+                if (isPrivateDataIncluded) {
+                    filteredProfile.password = profile.password;
+                }
             }
+
             break;
         }
 
@@ -44,7 +47,7 @@ class UserProfileService {
             throw new Error(ErrorConstants.INVALID_ARGUMENTS);
         }
 
-        const userProfile = await this.getUserProfileByName(userName);
+        const userProfile = await this.getUserProfileByName(userName, true);
 
         if (!userProfile) {
             throw new Error(ErrorConstants.BUSINESS_VALIDATION_FAILED);
